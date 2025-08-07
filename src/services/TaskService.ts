@@ -3,6 +3,22 @@ import { UserRepository } from "../repositories/UserRepository";
 import { Task } from "../entities/Task";
 
 export class TaskService {
+  static async getUserTasks(userId: number) {
+    const tasks = await TaskRepository.find({
+      where: { user: { id: userId } },
+      relations: ["user"],
+      order: { createdAt: "DESC" },
+    });
+
+    // Remove password from each task's user
+    return tasks.map((task) => {
+      if (task.user && "password" in task.user) {
+        delete (task.user as any).password;
+      }
+      return task;
+    });
+  }
+
   static async createTask(userId: number, data: Partial<Task>) {
     const { title, description } = data;
 
