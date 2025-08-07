@@ -1,6 +1,8 @@
 import { UserRepository } from "../repositories/UserRepository";
 import { User } from "../entities/User";
 import { hashPassword } from "../utils/hash";
+import bcrypt from "bcryptjs";
+import { generateToken } from "../utils/jwt";
 
 export class AuthService {
   static async signup(data: Partial<User>) {
@@ -33,5 +35,33 @@ export class AuthService {
     // Return user without password
     const { password: _, ...userWithoutPassword } = newUser;
     return userWithoutPassword;
+  }
+
+  static async signin(email: string, password: string) {
+    // Check for missing inputs
+    if (!email || !password) {
+      throw new Error("Email and password are required.");
+    }
+
+    // Check for invalid credentials
+    const user = await UserRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new Error("Invalid credentials.");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new Error("Invalid credentials.");
+    }
+
+    // If user found, generate JWT token
+    const token = generateToken(user.id);
+
+    // Return user and token
+    const { password: _, ...userWithoutPassword } = user;
+    return {
+      user: userWithoutPassword,
+      token,
+    };
   }
 }
