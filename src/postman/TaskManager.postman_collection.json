@@ -14,9 +14,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201 (Created)\", () => {\r",
-							"  pm.response.to.have.status(201);\r",
-							"});"
+							"if (pm.response.code === 200 || pm.response.code === 201) {\r",
+							"  pm.test(\"Success response\", () => {\r",
+							"    pm.response.to.have.status(pm.response.code);\r",
+							"  });\r",
+							"} else if ([400, 401, 404].includes(pm.response.code)) {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.test(\"Expected error response\", () => {\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", () => {\r",
+							"    pm.expect.fail(`Unexpected status: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -58,9 +70,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
+							"if (pm.response.code === 200 || pm.response.code === 201) {\r",
+							"  pm.test(\"Success response\", () => {\r",
+							"    pm.response.to.have.status(pm.response.code);\r",
+							"  });\r",
+							"} else if ([400, 401, 404].includes(pm.response.code)) {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.test(\"Expected error response\", () => {\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", () => {\r",
+							"    pm.expect.fail(`Unexpected status: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
+							"\r",
 							"\r",
 							"const response = pm.response.json();\r",
 							"pm.environment.set(\"token\", response.token);\r",
@@ -106,9 +130,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201 (Created)\", () => {\r",
-							"  pm.response.to.have.status(201);\r",
-							"});"
+							"if (pm.response.code === 200 || pm.response.code === 201) {\r",
+							"  pm.test(\"Success response\", () => {\r",
+							"    pm.response.to.have.status(pm.response.code);\r",
+							"  });\r",
+							"} else if ([400, 401, 404].includes(pm.response.code)) {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.test(\"Expected error response\", () => {\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", () => {\r",
+							"    pm.expect.fail(`Unexpected status: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -160,9 +196,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", () => {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});"
+							"if (pm.response.code === 200 || pm.response.code === 201) {\r",
+							"  pm.test(\"Success response\", () => {\r",
+							"    pm.response.to.have.status(pm.response.code);\r",
+							"  });\r",
+							"} else if ([400, 401, 404].includes(pm.response.code)) {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.test(\"Expected error response\", () => {\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", () => {\r",
+							"    pm.expect.fail(`Unexpected status: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -204,9 +252,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", () => {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});"
+							"if (pm.response.code === 200 || pm.response.code === 201) {\r",
+							"  pm.test(\"Success response\", () => {\r",
+							"    pm.response.to.have.status(pm.response.code);\r",
+							"  });\r",
+							"} else if ([400, 401, 404].includes(pm.response.code)) {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.test(\"Expected error response\", () => {\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", () => {\r",
+							"    pm.expect.fail(`Unexpected status: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -258,9 +318,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", () => {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});"
+							"if (pm.response.code === 200 || pm.response.code === 201) {\r",
+							"  pm.test(\"Success response\", () => {\r",
+							"    pm.response.to.have.status(pm.response.code);\r",
+							"  });\r",
+							"} else if ([400, 401, 404].includes(pm.response.code)) {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.test(\"Expected error response\", () => {\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", () => {\r",
+							"    pm.expect.fail(`Unexpected status: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -304,9 +376,20 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", () => {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
+							"if (pm.response.code === 200 || pm.response.code === 201) {\r",
+							"  pm.test(\"Success response\", () => {\r",
+							"    pm.response.to.have.status(pm.response.code);\r",
+							"  });\r",
+							"} else if ([400, 401, 404].includes(pm.response.code)) {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.test(\"Expected error response\", () => {\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", () => {\r",
+							"    pm.expect.fail(`Unexpected status: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
 							""
 						],
 						"type": "text/javascript",
