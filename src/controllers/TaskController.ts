@@ -21,4 +21,44 @@ export class TaskController {
       return res.status(400).json({ message: error.message });
     }
   }
+
+  static async update(req: Request, res: Response) {
+    try {
+      const userId = req.userId!;
+      const taskId = parseInt(req.params.id);
+      const data = req.body;
+
+      const updatedTask = await TaskService.updateTask(userId, taskId, data);
+      return res.json(updatedTask);
+    } catch (error: any) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async delete(req: Request, res: Response) {
+    try {
+      const userId = req.userId!;
+      const taskId = parseInt(req.params.id);
+
+      await TaskService.deleteTask(userId, taskId);
+      return res.json({ message: "Task deleted successfully." });
+    } catch (error: any) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async toggleComplete(req: Request, res: Response) {
+    try {
+      const userId = req.userId!;
+      const taskId = parseInt(req.params.id);
+
+      const updatedTask = await TaskService.toggleTaskCompletion(
+        userId,
+        taskId
+      );
+      return res.json(updatedTask);
+    } catch (error: any) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
 }
